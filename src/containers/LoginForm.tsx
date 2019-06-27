@@ -4,24 +4,36 @@ import { ScreenOrientation } from "expo";
 import BasicButton from "../components/common/BasicButton";
 import BasicInput from "../components/common/BasicInput";
 
-class LoginForm extends Component {
+interface State {
+  emailInput: string;
+  passwordInput: string;
+}
+
+class LoginForm extends React.Component<any, any> {
+  state = { emailInput: "", passwordInput: "" };
+
   componentDidMount() {
     ScreenOrientation.allow(ScreenOrientation.OrientationLock.LANDSCAPE);
   }
 
-  onEmailInput() {
-    console.log("Email Input");
-  }
+  onEmailInput = (emailInput: string) => {
+    this.setState({
+      emailInput: emailInput
+    });
+  };
 
-  onPasswordInput() {
-    console.log("Password Input");
-  }
+  onPasswordInput = (passwordInput: string) => {
+    this.setState({
+      passwordInput: passwordInput
+    });
+  };
 
   render() {
+    console.log(this.state.emailInput);
     return (
       <View style={style.container}>
-        <BasicInput onChangeText={this.onEmailInput} />
-        <BasicInput onChangeText={this.onPasswordInput} />
+        <BasicInput onChangeText={e => this.onEmailInput(e)} />
+        <BasicInput onChangeText={e => this.onPasswordInput(e)} />
         <BasicButton
           title="Log In"
           onClick={() => console.log("Button clicked")}
